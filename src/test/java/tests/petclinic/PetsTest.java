@@ -7,6 +7,7 @@ import pages.LoginPage;
 import pages.Pets;
 import pages.SideMenu;
 import tests.TestBase;
+import utils.DbHelper;
 
 import java.net.MalformedURLException;
 import java.sql.SQLException;
@@ -40,6 +41,30 @@ public class PetsTest extends TestBase {
 
         saNg.assertTrue(petFromWeb.getName().contains(newPet.getName()), "В Web присутствует строка с таким Name");
         saNg.assertTrue(petFromWeb.getBirthDateWeb().contains(newPet.getBirthDateWeb()), "В Web присутствует строка с таким BirthDate");
+
+        step("Выйти из системы");
+        SideMenu.logoutButton.click();
+        saNg.assertAll();
+    }
+    @Test
+    public void createPetsAndCheckDB() throws SQLException, MalformedURLException {
+        SoftAssert saNg = new SoftAssert();
+        String testName = "Базовый тест. Создание Pets с проверкой в базе.";
+        TestBase.openUrl(testName);
+        LoginPage.login("user");
+        step("Открыть меню Pets");
+        SideMenu.PetsMenu.click();
+        step("Нажать Create");
+        Pets.createBtn.click();
+
+        Pets.PetObject newPet = Pets.newPetObject();
+        createNewPetWeb(newPet);
+
+        saNg.assertTrue(DbHelper.PetsCheck.getPetIdByIdentificationNumber(newPet).isEmpty()==false, "В DB присутствует строка с таким identNumber");
+
+        Pets.PetObject PetDB = DbHelper.PetsCheck.getPetByIdentificationNumber(newPet);
+        saNg.assertTrue(PetDB.getName().contains(newPet.getName()), "В DB присутствует строка с таким Name");
+        saNg.assertTrue(PetDB.getBirthDateWeb().contains(newPet.getBirthDateDB()), "В DB присутствует строка с таким BirthDate");
 
         step("Выйти из системы");
         SideMenu.logoutButton.click();
