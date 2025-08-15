@@ -5,6 +5,7 @@
     <test name="Tests">
         <classes>
             <class name ="tests.petclinic.LoginTest"/>
+            <class name ="tests.petclinic.PetsTest"/>
         </classes>
     </test>
 </suite>
