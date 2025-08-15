@@ -4,8 +4,7 @@
     <!--<parameter name="urlApp"  value="http://*****/***/"/> -->
     <test name="Tests">
         <classes>
-            <class name ="tests.petclinic.LoginTest"/>
-            <class name ="tests.petclinic.PetsTest"/>
+            <class name ="tests.petclinic.RestApiTests"/>
         </classes>
     </test>
 </suite>
