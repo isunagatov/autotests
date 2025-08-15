@@ -95,7 +95,7 @@ public class TestBase {
         }
         if(ReadConfig.TestConfigurationClass.getListTestConfiguration().getFirst().getSelenoid().contains("true")) {
             Configuration.remote = System.setProperty("selenide.remoteUrl", ReadConfig.TestConfigurationClass.getTestConfiguration().getSelenoidUrl());
-            Configuration.remote = System.getProperty("selenide.remoteUrl", "http://192.168.1.59:4444/wd/hub");
+            Configuration.remote = System.getProperty("selenide.remoteUrl");
             Configuration.timeout = Integer.parseInt(System.getProperty("selenide.timeout", "10000"));
 
             SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
