@@ -92,4 +92,85 @@ public class RestApiJMix {
             return jso1;
         }else return jso;
     }
+    @Step("Create User. Создание пользователя")
+    public static JSONObject newUser(TestData.UserClass.User user) throws Exception{
+        ReadConfig.SubSystemClass.SubSystem system = ReadConfig.SubSystemClass.getSubSystem();
+        String source1 = system.getUrl() + "/rest/entities/User";
+        HttpClient client;
+
+            client = HttpClients.createDefault();
+
+        HttpPost post = new HttpPost(source1);
+        post.setHeader("Authorization", "Bearer " + RestApiJMix.getTokenJMix());
+        post.setHeader("Content-type", "application/json");
+        JSONObject jsonBody = new JSONObject();
+
+        jsonBody.put("_entityName", "User");
+        jsonBody.put("_instanceName", user.getUserName());
+        jsonBody.put("username", user.getUserName());
+        jsonBody.put("active", "true");
+        jsonBody.put("firstName", "_auto");
+        jsonBody.put("lastName", "test " + user.getUserName());
+        jsonBody.put("password", "test " + "{noop}admin");
+
+        StringEntity strEnt = new StringEntity(jsonBody.toString());
+        post.setEntity(strEnt);
+        HttpResponse response = client.execute(post);
+        System.out.println("\nSending 'Post' request to URL /users: " + source1);
+        Assert.assertEquals(response.getStatusLine().getStatusCode(),201, "Статуc верный 201");
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        System.out.println(result);
+        String ResultRunID = result.toString();
+        JSONObject jso = new JSONObject(ResultRunID);
+        return jso;
+    }
+    @Step("Search User Поиск пользователя")
+    public static JSONArray searchUser(TestData.UserClass.User user, String propertyName, String searchValue) throws Exception{
+        ReadConfig.SubSystemClass.SubSystem system = ReadConfig.SubSystemClass.getSubSystem();
+        String source1 = system.getUrl() + "/rest/entities/User/search";
+        HttpClient client;
+
+            client = HttpClients.createDefault();
+
+        HttpPost post = new HttpPost(source1);
+        post.setHeader("Authorization", "Bearer " + RestApiJMix.getTokenJMix());
+        post.setHeader("Content-type", "application/json");
+
+        JSONObject jsonBody = new JSONObject();
+        JSONObject jsoFilter = new JSONObject();
+        JSONArray jsaConditions = new JSONArray();
+
+        JSONObject jsoConditions = new JSONObject();
+        jsoConditions.put("property", propertyName);
+        jsoConditions.put("operator", "=");
+        jsoConditions.put("value", searchValue);
+
+        jsaConditions.put(jsoConditions);
+        jsoFilter.put("conditions", jsaConditions);
+        jsonBody.put("filter", jsoFilter);
+
+        StringEntity strEnt = new StringEntity(jsonBody.toString());
+        post.setEntity(strEnt);
+        HttpResponse response = client.execute(post);
+        System.out.println("\nSending 'Post' request to URL /users: " + source1);
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        System.out.println(result);
+        JSONObject jso = new JSONObject(result);
+        String ResultRunID = result.toString();
+        return new JSONArray(ResultRunID);
+    }
 }

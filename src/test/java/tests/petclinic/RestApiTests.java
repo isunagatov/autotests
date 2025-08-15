@@ -25,4 +25,30 @@ public class RestApiTests {
         System.out.println("First user: " + jso1.get("username"));
         sa.assertAll();
     }
+    @Test
+    public static void createUser() throws Exception {
+        SoftAssert sa = new SoftAssert();
+        TestData.UserClass.User user = new TestData.UserClass.User();
+        String suffix = UUID.randomUUID().toString().substring(0,5);
+        user.setUserLogin("testUser_" + suffix);
+        user.setUserName("TestCreateUserAt"+suffix);
+        user.setEmail("test" + suffix + "@company.ru");
+
+        JSONObject jso = utils.RestApiJMix.newUser(user);
+        sa.assertTrue(jso.get("id").toString().length()>5, "Получен 1 результат");
+        sa.assertAll();
+    }
+    @Test
+    public static void searchUser() throws Exception {
+        TestData.UserClass.User user = TestData.UserClass.getUserByRole("Petclinic", "SystemAdmin");
+        JSONArray result = RestApiJMix.searchUser(user,"username", user.getUserLogin());
+        int len = result.length();
+        if(len==1){
+            JSONObject jso = new JSONObject(result.get(0).toString());
+            Assert.assertTrue(jso.get("id").toString().isEmpty()==false, "Пользователь найден: " + jso.get("id").toString());
+        }else {
+            Assert.fail( "Результатов или больше или меньше 1: " + len + " .");
+        }
+    }
+
 }
