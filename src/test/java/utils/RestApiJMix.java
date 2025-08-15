@@ -55,5 +55,41 @@ public class RestApiJMix {
         }
         return tokenStr;
     }
+    @Step("getUsers. Получение списка пользователей")
+    public static JSONArray getUsers() throws Exception{
+        ReadConfig.SubSystemClass.SubSystem system = ReadConfig.SubSystemClass.getSubSystem();
+        String source1 = system.getUrl() + "/rest/entities/User";
 
+        HttpClient client;
+
+            client = HttpClients.createDefault();
+
+
+        HttpGet get = new HttpGet(source1);
+        get.setHeader("Authorization", "Bearer " + getTokenJMix());
+        get.setHeader("Content-type", "application/json");
+        HttpResponse response = client.execute(get);
+        System.out.println("\nSending 'Get' request to URL /users: " + source1);
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        System.out.println(result);
+        String ResultRunID = result.toString();
+        JSONArray jsa = new JSONArray(ResultRunID);
+
+        return jsa;
+    }
+    public static JSONObject getObjectFromArray(int index, JSONArray array){
+        JSONObject jso = new JSONObject();
+        if(array.length()>0) {
+            JSONObject jso1;
+            jso1 = array.getJSONObject(index);
+            return jso1;
+        }else return jso;
+    }
 }
