@@ -1,6 +1,7 @@
 package utils;
 
 
+
 import pages.Pets;
 
 import java.sql.*;
@@ -50,6 +51,7 @@ public class DbHelper {
         }
         return connection;
     }
+
     public static class PetsCheck{
         public static String getPetIdByIdentificationNumber(Pets.PetObject o) throws SQLException {
             Connection connection = getConnection(ReadConfig.DataBase.getDbBySubSystem("Petclinic"));
