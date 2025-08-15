@@ -17,7 +17,7 @@
     <TestConfiguration>
         <TestDataFile>testdata.xml</TestDataFile>
         <checkAndRestorePasswords>false</checkAndRestorePasswords>
-        <selenoid>false</selenoid>
+        <selenoid>true</selenoid>
         <ignoreUiSSL>false</ignoreUiSSL>
         <ignoreRestSSL>false</ignoreRestSSL>
         <selenoidUrl>http://192.168.1.59:4444/wd/hub</selenoidUrl> //http://selenoid.company.ru:8081
