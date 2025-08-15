@@ -125,7 +125,6 @@ public class TestBase {
             String remUrlStr = ReadConfig.TestConfigurationClass.getListTestConfiguration().get(0).getSelenoidUrl();
             // URL вашего Selenoid/Grid
             URL urlRem = new URL(remUrlStr);
-             //   driver.manage().window().setSize(new Dimension(1920, 1080));
             WebDriver driver = new RemoteWebDriver(urlRem, options);
 
             WebDriverRunner.setWebDriver(driver);
