@@ -51,4 +51,17 @@ public class RestApiTests {
         }
     }
 
+    @Test(groups = "negative")
+    public static void searchUserNegative() throws Exception {
+        TestData.UserClass.User user = TestData.UserClass.getUserByRole("Petclinic", "SystemAdmin");
+        JSONArray result = RestApiJMix.searchUser(user,"username", "no_login");
+        int len = result.length();
+        if(len==1){
+            JSONObject jso = new JSONObject(result.get(0).toString());
+            Assert.assertTrue(jso.get("id").toString().isEmpty()==false, "Пользователь найден: " + jso.get("id").toString());
+        }else {
+            Assert.fail( "Результатов или больше или меньше 1: " + len + " .");
+        }
+    }
+
 }

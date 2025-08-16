@@ -145,7 +145,7 @@ public class TestBase {
         driver.manage().window().setSize(new Dimension(1900,1000));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        Selenide.sleep(2000);
+        Selenide.sleep(500);
         System.out.println("Current url:: " + driver.getCurrentUrl());
         sa.assertFalse($$(Selectors.byText("Whitelabel Error Page")).size()>0, "Ошибка Whitelabel Error Page");
         sa.assertAll();
@@ -160,7 +160,7 @@ public class TestBase {
 
     @AfterMethod
     public void closeWeb(){
-        Selenide.sleep(2000);
+        Selenide.sleep(500);
         System.out.println("closeWeb ");
         try{
             getWebDriver().quit();
