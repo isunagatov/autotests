@@ -42,4 +42,17 @@ public class LoginTest extends TestBase {
         }
         return objUser;
     }
+    @Test(enabled = true, groups = "negative")
+    public void loginNegative() throws MalformedURLException {
+        String testName = "Негативный тест. Авторизация по Логину/паролю.";
+        TestBase.openUrl(testName);
+        TestData.UserClass.User user = new TestData.UserClass.User();
+        user.setUserLogin("user1");
+        user.setUserPassword("password");
+        user.setUserName("user1");
+        LoginPage.login(user);
+        Selenide.sleep(1000);
+        LoginPage.logoutButton.click();
+        Selenide.sleep(1000);
+    }
 }
