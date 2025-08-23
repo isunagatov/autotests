@@ -51,6 +51,7 @@ public class RestApiTests {
         }
     }
 
+
     @Test(groups = "negative", description = "Негативный. Поиск пользователя")
     public static void searchUserNegative() throws Exception {
         TestData.UserClass.User user = TestData.UserClass.getUserByRole("Petclinic", "SystemAdmin");

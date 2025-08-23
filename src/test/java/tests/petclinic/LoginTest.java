@@ -42,6 +42,7 @@ public class LoginTest extends TestBase {
         }
         return objUser;
     }
+
     @Test(enabled = true, groups = "negative", description = "Негативный тест. Авторизация по Логину/паролю.")
     public void loginNegative() throws MalformedURLException {
         String testName = "Негативный тест. Авторизация по Логину/паролю.";

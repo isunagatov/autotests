@@ -4,6 +4,7 @@ import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 import tests.TestBase;
 import utils.TestData;
 
@@ -23,7 +24,8 @@ public class LoginPage extends TestBase {
         LoginPage.userNameField.setValue(Login);
         LoginPage.passwordField.setValue(Password);
         LoginPage.signInButton.click();
-        sleep(4000);
+        sleep(1000);
+        checkErrorAuth();
     }
     @Step("Авторизация по логину")
     public static void login(TestData.UserClass.User user){
@@ -39,16 +41,24 @@ public class LoginPage extends TestBase {
         LoginPage.passwordField.sendKeys(user.getUserPassword());
         step("Нажать кнопку входа.");
         LoginPage.signInButton.click();
-        sleep(2000);
+        sleep(500);
+        checkErrorAuth();
     }
     @Step("Авторизация по логину")
     public static void login(String UserRoleName){
         TestData.UserClass.User User = TestData.UserClass.getUserByRole("Petclinic", UserRoleName);
         login(User);
+        checkErrorAuth();
     }
     @Step("Выход из системы")
     public static void logOut(){
         LoginPage.logoutButton.click();
+    }
+    public static void checkErrorAuth(){
+        if (LoginPage.logoutButton.exists()==false) {
+            String errorMessage = $("#vaadinLoginFormWrapper").getAttribute("error");
+            Assert.assertFalse(errorMessage.contains("true"), "Ошибка авторизации");
+        }
     }
 }
 
