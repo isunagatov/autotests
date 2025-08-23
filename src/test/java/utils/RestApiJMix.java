@@ -59,11 +59,8 @@ public class RestApiJMix {
     public static JSONArray getUsers() throws Exception{
         ReadConfig.SubSystemClass.SubSystem system = ReadConfig.SubSystemClass.getSubSystem();
         String source1 = system.getUrl() + "/rest/entities/User";
-
         HttpClient client;
-
-            client = HttpClients.createDefault();
-
+        client = HttpClients.createDefault();
 
         HttpGet get = new HttpGet(source1);
         get.setHeader("Authorization", "Bearer " + getTokenJMix());

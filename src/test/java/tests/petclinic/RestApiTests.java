@@ -11,12 +11,12 @@ import utils.TestData;
 import java.util.UUID;
 
 public class RestApiTests {
-    @Test
+    @Test(description = "Получение токена доступа api")
     public static void getTokenJ() throws Exception {
         String token = utils.RestApiJMix.getTokenJMix();
         Assert.assertTrue(token.length()>5, "Токен получен");
     }
-    @Test
+    @Test(description = "Получение пользователя")
     public static void getUsers() throws Exception {
         SoftAssert sa = new SoftAssert();
         JSONArray jsa = utils.RestApiJMix.getUsers();
@@ -25,7 +25,7 @@ public class RestApiTests {
         System.out.println("First user: " + jso1.get("username"));
         sa.assertAll();
     }
-    @Test
+    @Test(description = "Создание пользователя")
     public static void createUser() throws Exception {
         SoftAssert sa = new SoftAssert();
         TestData.UserClass.User user = new TestData.UserClass.User();
@@ -38,7 +38,7 @@ public class RestApiTests {
         sa.assertTrue(jso.get("id").toString().length()>5, "Получен 1 результат");
         sa.assertAll();
     }
-    @Test
+    @Test(description = "Поиск пользователя")
     public static void searchUser() throws Exception {
         TestData.UserClass.User user = TestData.UserClass.getUserByRole("Petclinic", "SystemAdmin");
         JSONArray result = RestApiJMix.searchUser(user,"username", user.getUserLogin());
@@ -51,7 +51,8 @@ public class RestApiTests {
         }
     }
 
-    @Test(groups = "negative")
+
+    @Test(groups = "negative", description = "Негативный. Поиск пользователя")
     public static void searchUserNegative() throws Exception {
         TestData.UserClass.User user = TestData.UserClass.getUserByRole("Petclinic", "SystemAdmin");
         JSONArray result = RestApiJMix.searchUser(user,"username", "no_login");

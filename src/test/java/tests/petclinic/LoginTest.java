@@ -15,16 +15,16 @@ import java.util.List;
 import static utils.TestData.UserClass.getListUser;
 
 public class LoginTest extends TestBase {
-    @Test(enabled = true)
+    @Test(enabled = true, description = "Авторизация по Логину/паролю.")
     public void login() throws MalformedURLException {
-        String testName = "Базовый тест. Авторизация по Логину/паролю.";
+        String testName = "Авторизация по Логину/паролю.";
         TestBase.openUrl(testName);
         LoginPage.login("user");
         Selenide.sleep(1000);
         LoginPage.logoutButton.click();
         Selenide.sleep(1000);
     }
-    @Test(dataProvider = "users")
+    @Test(dataProvider = "users", description = "Авторизация по Логину/паролю. DataProvider")
     public void loginDP(TestData.UserClass.User user) throws MalformedURLException {
         String testName = "Базовый тест. Авторизация по Логину/паролю.";
         TestBase.openUrl(testName + user.getUserLogin());
@@ -42,7 +42,8 @@ public class LoginTest extends TestBase {
         }
         return objUser;
     }
-    @Test(enabled = true, groups = "negative")
+
+    @Test(enabled = true, groups = "negative", description = "Негативный тест. Авторизация по Логину/паролю.")
     public void loginNegative() throws MalformedURLException {
         String testName = "Негативный тест. Авторизация по Логину/паролю.";
         TestBase.openUrl(testName);

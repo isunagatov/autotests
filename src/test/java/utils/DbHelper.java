@@ -79,7 +79,9 @@ public class DbHelper {
         public static Pets.PetObject getPetByIdentificationNumber(Pets.PetObject o) throws SQLException {
             Connection connection = getConnection(ReadConfig.DataBase.getDbBySubSystem("Petclinic"));
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT pp.id as \"pp.id\", pp.name as \"pp.name\", pp.birthdate as \"pp.birthdate\", pp.type_id, pp.owner_id,pp.identification_number as \"pp.identification_number\", pt.name as \"pt.name\" , po.first_name as \"po.first_name\"\n" +
+                    "SELECT pp.id as \"pp.id\", pp.name as \"pp.name\", pp.birthdate as \"pp.birthdate\", " +
+                            "pp.type_id, pp.owner_id,pp.identification_number as \"pp.identification_number\", " +
+                            "pt.name as \"pt.name\" , po.first_name as \"po.first_name\"\n" +
                             "FROM public.petclinic_pet pp \n" +
                             "left join petclinic_pet_type pt on (pp.type_id = pt.id )\n" +
                             "left join petclinic_owner po on (pp.owner_id = po.id)\n" +
