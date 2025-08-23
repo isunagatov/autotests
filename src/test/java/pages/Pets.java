@@ -40,9 +40,6 @@ public class Pets extends TestBase {
         private String name;
         private String identificNumber;
         private String birthDateWeb;
-
-
-
         private String birthDateDB;
         private String owner;
         private String type;
@@ -50,57 +47,45 @@ public class Pets extends TestBase {
         public UUID getId() {
             return id;
         }
-
         public void setId(UUID id) {
             this.id = id;
         }
         public String getName() {
             return name;
         }
-
         public void setName(String name) {
             this.name = name;
         }
-
         public String getIdentificNumber() {
             return identificNumber;
         }
-
         public void setIdentificNumber(String identificNumber) {
             this.identificNumber = identificNumber;
         }
-
         public String getBirthDateWeb() {
             return birthDateWeb;
         }
-
         public void setBirthDateWeb(String birthDate) {
             this.birthDateWeb = birthDate;
         }
         public String getBirthDateDB() {
             return birthDateDB;
         }
-
         public void setBirthDateDB(String birthDateDB) {
             this.birthDateDB = birthDateDB;
         }
-
         public String getOwner() {
             return owner;
         }
-
         public void setOwner(String owner) {
             this.owner = owner;
         }
-
         public String getType() {
             return type;
         }
-
         public void setType(String type) {
             this.type = type;
         }
-
         public void setUniqNewName(){
             String newId = "New name of Pets" + UUID.randomUUID().toString().substring(0,5);
             setName(newId);
@@ -109,7 +94,6 @@ public class Pets extends TestBase {
             String newId = "id" + UUID.randomUUID().toString().substring(0,8);
             setIdentificNumber(newId);
         }
-
 
         @Override
         public String toString() {

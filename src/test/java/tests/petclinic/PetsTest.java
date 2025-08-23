@@ -25,10 +25,10 @@ public class PetsTest extends TestBase {
         }
         return petObjects;
     }
-    @Test
+    @Test(description = "Создание Pets с проверкой в базе и через web.")
     public void createPetsAndCheckWeb() throws SQLException, MalformedURLException {
         SoftAssert saNg = new SoftAssert();
-        String testName = "Базовый тест. Создание Pets с проверкой в базе и через web.";
+        String testName = "Создание Pets с проверкой в базе и через web.";
         TestBase.openUrl(testName);
         LoginPage.login("user");
         step("Открыть меню Pets");
@@ -54,7 +54,7 @@ public class PetsTest extends TestBase {
         SideMenu.logoutButton.click();
         saNg.assertAll();
     }
-    @Test
+    @Test(description = "Создание Pets с проверкой в базе.")
     public void createPetsAndCheckDB() throws SQLException, MalformedURLException {
         SoftAssert saNg = new SoftAssert();
         String testName = "Базовый тест. Создание Pets с проверкой в базе.";
@@ -78,14 +78,13 @@ public class PetsTest extends TestBase {
         SideMenu.logoutButton.click();
         saNg.assertAll();
     }
-    @Test(dataProvider = "pets")
+    @Test(dataProvider = "pets", description = "Создание Pets с проверкой в базе. DataProvider")
     public void createPetsAndCheckDbWithDataProvider(Pets.PetObject newPet) throws SQLException, MalformedURLException {
         SoftAssert saNg = new SoftAssert();
-        String testName = "Базовый тест. Создание Pets с проверкой в базе.";
+        String testName = "Создание Pets с проверкой в базе.";
         TestBase.openUrl(testName + newPet.getName());
         LoginPage.login("user");
         step("Открыть меню Pets");
-
         SideMenu.PetsMenu.click();
         step("Нажать Create");
         Pets.createBtn.click();
